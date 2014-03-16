@@ -12,12 +12,12 @@ namespace lab1
         static void Main(string[] args)
         {
             var file1 = new StreamReader("../../Data/1.txt",Encoding.Default);
-            var file2 = new StreamReader("../../Data/2.txt", Encoding.Default);
+            var file2 = new StreamReader("../../Data/3.txt", Encoding.Default);
 
             string text1 = file1.ReadToEnd();
             string text2 = file2.ReadToEnd();
 
-            uint lenght = 5;
+            uint lenght = 10;
 
             var shin1 = Shingles.GetShingle(Shingles.Canonize(text1), lenght);
             var shin2 = Shingles.GetShingle(Shingles.Canonize(text2), lenght);

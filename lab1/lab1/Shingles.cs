@@ -16,7 +16,7 @@ namespace lab1
     public static class Shingles
     {
         private const int HashCount = 84;
-        private const int HashGroupCount = 6;
+        private const int HashGroupCount = 14;
 
  
         private static List<char> _stop_symbols = new List<char>() 
@@ -48,7 +48,7 @@ namespace lab1
             for (int i = 0; i < 84; i++)
             {
                 int b = r.Next(5, 20);
-                int simple = r.Next(b, b*2);
+                int simple = r.Next(b+1, b*2);
                 var function = new Func<string, uint>(s => (uint) s.Select((t, j) =>
                 {
                     return (t*((uint) Math.Pow(b, j)%simple)%simple);
@@ -83,7 +83,6 @@ namespace lab1
 
         public static List<uint> GetHash(List<string> text)
         {
-            int index = 0;
             var result = new List<uint>();
             for (var i = 0; i < HashCount; i++)
             {
@@ -92,17 +91,20 @@ namespace lab1
 
             foreach (var shingle in text)
             {
-                var hash = _84AvasomeFunctions[index](shingle);
-                if (result[index] >= hash)
-                    result[index] = hash;
-                index = (int) ((index + 1)%HashCount);
+                for (int i = 0; i < _84AvasomeFunctions.Count; i++)
+                {
+                    var hash = _84AvasomeFunctions[i](shingle);
+
+                    if (result[i] > hash)
+                        result[i] = hash;
+                }                
             }
-            result.Sort((x, y) =>
-            {
-                if (x > y) return 1;
-                if (x < y) return -1;
-                return 0;
-            });
+            //result.Sort((x, y) =>
+            //{
+            //    if (x > y) return 1;
+            //    if (x < y) return -1;
+            //    return 0;
+            //});
             return result;
         }
 
@@ -114,13 +116,14 @@ namespace lab1
 
             for (int i = 0; i < HashCount; i++)
             {
-                if (shingles1[i] == shingles2[i] && shingles1[i] != uint.MaxValue)
+                //if (shingles1.Contains(shingles2[i]))
+                if(shingles1[i]==shingles2[i])
                     count++;
             }
 
 
             if (realcount == -1)
-                realcount = (int) HashCount;
+                realcount =  HashCount;
 
             return (float)count/realcount;
         }
@@ -179,12 +182,21 @@ namespace lab1
                 bool res = true;
                 for (int j = 0; j < HashCount/HashGroupCount; j++)
                 {
-                    if (shingles1[i].Contains(shingles2[i][j]))
-                        count++;
+                    var r1 = shingles1[i][j];
+                    var r2 = shingles2[i][j];
+
+                    if (shingles1[i][j] != shingles2[i][j])
+                        //if (shingles1[i].Contains(shingles2[i][j]))
+                    {                        
+                        res = false;
+                        break;
+                    }
                 }
+                if (res)
+                    count++;
             }
 
-            return (float) count/HashCount;
+            return (float) count/HashGroupCount;
         }
 
         public static List<KeyValuePair<int, int>> GetMegaHash()
@@ -222,14 +234,17 @@ namespace lab1
             for (int i = 0; i < HashGroupCount; i++)
             {
                 bool res = true;
-                for (int j = 0; j < HashCount / HashGroupCount; j++)
+                for (int j = 0; j < shingles1[i].Count; j++)
                 {
-                    if (shingles1[i].Contains(shingles2[i][j]))
-                        count++;
+                    if (shingles1[i][j] != shingles2[i][j])
+                        //if (shingles1[i].Contains(shingles2[i][j]))
+                        res = false;
                 }
+                if (res)
+                    count++;
             }
 
-            return (float)count / HashCount/HashGroupCount*shingles1.Count;
+            return (float)count / shingles1.Count;
         }
     }
 }

@@ -4,3 +4,9 @@ C:\Users\Waster\Desktop\lab1\lab1\bin\Debug\lab1.pdb
 C:\Users\Waster\Desktop\lab1\lab1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
 C:\Users\Waster\Desktop\lab1\lab1\obj\Debug\lab1.exe
 C:\Users\Waster\Desktop\lab1\lab1\obj\Debug\lab1.pdb
+C:\Users\Waster\Desktop\labs\lab1\lab1\bin\Debug\lab1.exe.config
+C:\Users\Waster\Desktop\labs\lab1\lab1\bin\Debug\lab1.exe
+C:\Users\Waster\Desktop\labs\lab1\lab1\bin\Debug\lab1.pdb
+C:\Users\Waster\Desktop\labs\lab1\lab1\obj\Debug\lab1.csprojResolveAssemblyReference.cache
+C:\Users\Waster\Desktop\labs\lab1\lab1\obj\Debug\lab1.exe
+C:\Users\Waster\Desktop\labs\lab1\lab1\obj\Debug\lab1.pdb
